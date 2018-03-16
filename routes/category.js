@@ -46,6 +46,27 @@ function getAllCategory(cb){
     });
 }
 
+//Get All Products
+router.get("/getAllProducts", function (req, res, next) {
+    
+    getAllProducts(function(err, rows) {
+        if (err)
+            return next(err);
+            products = rows;
+
+            if(products.length > 0) {
+            res.status(201);
+            res.json(products);
+            }
+            else{
+            let error = 'No Products List found ';
+            res.json({ error });
+            }
+            
+    });
+   
+});
+
 //Get Products by CategoryID (eg URL: )
 router.get("/getProductCategoryId/:id", function (req, res, next) {
     let id = req.params.id;
@@ -80,6 +101,18 @@ function getAllProductsByCategoryID(id, cb){
             return cb(err);
 
         conn.query("SELECT p.* FROM products p INNER JOIN productcategories pc ON p.ProductCategoryID=pc.CategoryID  WHERE p.ProductCategoryID= ? ", [id],
+            function(err, rows) {
+            conn.release();
+            cb(err, rows);
+        });
+    });
+
+}
+function getAllProducts(cb){
+    pool.getConnection(function(err, conn) {
+        if (err)
+            return cb(err);
+        conn.query("SELECT p.* FROM products p INNER JOIN productcategories pc ON p.ProductCategoryID=pc.CategoryID",
             function(err, rows) {
             conn.release();
             cb(err, rows);
