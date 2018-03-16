@@ -11,23 +11,23 @@ var pool = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "",
-    database: "nodejs"
+    database: "nodejs" //Database Name
   });
 
 //1. List Category (eg URL: http://localhost:3000/api/category)
 router.get("/", function(req, res, next) {
     getAllCategory( function(err, rows) {
         if (err)
-          return next(err);
-          categories = rows;
-          if(categories.length > 0) {
+        return next(err);
+        categories = rows;
+        if(categories.length > 0) {
             res.status(201);
             res.json(categories);
-          }
-          else{
+        }
+        else{
             let error = 'No Category List found';
             res.json({ error });
-          }
+        }
     });
     
 });
