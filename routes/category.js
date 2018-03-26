@@ -17,18 +17,20 @@ router.get("/", (req, res, next) => {
 		count = categories.length;
 		if(categories.length > 0) {
 			res.status(200);
-			res.json({
+			res.json(categories);
+			/*res.json({
 				categories: categories,
 				count: count
-			});
+			});*/
 		}
 		else{
 			let error = "No Category List found";
 			res.status(204);
-			res.json({
+			res.json(error);
+			/*res.json({
 				error: error,
 				count: count
-			});
+			});*/
 		}
 	});
     
@@ -44,18 +46,20 @@ router.get("/getAllProducts", (req, res, next) => {
 		count = products.length;
 		if(products.length > 0) {
 			res.status(200);
-			res.json({
+			res.json(products);
+			/*res.json({
 				products: products,
 				count: count
-			});
+			});*/
 		}
 		else{
 			let error = "No Products List found ";
 			res.status(204);
-			res.json({
+			res.json(error);
+			/*res.json({
 				error: error,
 				count: count
-			});
+			});*/
 		}
             
 	});
@@ -69,10 +73,11 @@ router.get("/getProductCategoryId/:id", (req, res, next) => {
 	if(isNaN(id)){
 		let error = "Invalid category id";
 		res.status(400);
-		res.json({
+		res.json(error);
+		/*res.json({
 			error: error,
 			count: count
-		});
+		});*/
 	}
 	else {
 		store.getAllProductsByCategoryID(id, (err, rows) => {
@@ -82,18 +87,20 @@ router.get("/getProductCategoryId/:id", (req, res, next) => {
 			count = products.length;
 			if(products.length > 0) {
 				res.status(200);
-				res.json({
+				res.json(products);
+				/*res.json({
 					products: products,
 					count: count
-				});
+				});*/
 			}
 			else{
 				res.status(204);
 				let error = "No Products List found for the category id "+ id;
-				res.json({
+				res.json(error);
+				/*res.json({
 					error: error,
 					count: count
-				});
+				});*/
 			}
               
 		});

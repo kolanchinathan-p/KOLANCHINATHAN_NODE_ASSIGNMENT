@@ -15,7 +15,8 @@ var cors = require("cors");
 var app = express();
 
 // use it before all route definitions
-app.use(cors({origin: "http://172.16.110.28:3000"}));
+//app.use(cors({origin: "http://172.16.110.28:3000"}));
+app.use(cors({origin: "*"}));
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -29,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", index);
-app.use("/users", users);
+app.use("/api/users", users);
 
 app.use("/api/category", category);
 
